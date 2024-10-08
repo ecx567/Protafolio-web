@@ -1,0 +1,124 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<style>
+    .experiences-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff67;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #3162cb6b;
+    }
+
+    th {
+        background-color: #7eb4eaa0;
+        font-weight: bold;
+        color: #495057;
+    }
+
+    tr:hover {
+        background-color: #bac8d6fc;
+    }
+
+    .description {
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin: 2px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .btn-warning {
+        color: #fff;
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn:hover {
+        opacity: 0.8;
+    }
+
+    .add-experience {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="experiences-container">
+    <h1>Mis Experiencias</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Curso</th>
+                <th>Institución</th>
+                <th>Fecha</th>
+                <th>Horas</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for experiencia in experiencias %}
+            <tr>
+                <td>{{ experiencia.curso }}</td>
+                <td>{{ experiencia.institucion_del_curso }}</td>
+                <td>{{ experiencia.fecha_curso }}</td>
+                <td>{{ experiencia.numero_horas }}</td>
+                <td class="description" title="{{ experiencia.descripcion }}">{{ experiencia.descripcion_curso }}</td>
+                <td>
+                    <a href="{% url 'editar_experiencia' experiencia.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'eliminar_experiencia' experiencia.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="add-experience">
+        <a href="{% url 'agregar_experiencia' %}" class="btn btn-primary">Agregar nueva experiencia</a>
+    </div>
+</div>
+{% endblock %}
